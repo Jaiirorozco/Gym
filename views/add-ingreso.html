@@ -1,0 +1,32 @@
+<div class="side-form" >
+    <div class="content" >
+        <div class="text-left text-white p-3 mb-3" style="background-color: #033028;">
+          <h3>{{add_title}}</h3>      
+        </div>
+        <hr>
+        <div class="form-container  p-4" style="background-color: #E1E2E1;">
+            <form class="mb-5">
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="cliente">Asunto</label>
+                    <input ng-model="dato.asunto" type="text" class="form-control">
+                    <input ng-model="dato.id" type="text" hidden class="form-control">
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="cantidad">Monto</label>
+                    <input ng-model="dato.monto" type="text" class="form-control">
+                  </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="articulo">Notas</label>
+                      <input ng-model="dato.notas" type="text" class="form-control" >
+                    </div>
+                  </div>
+              </form>
+                <button type="button" class="btn btn-danger" ng-click="regresar(pagina)">Cerrar</button>
+                <button type="button" class="btn btn-success">Guardar</button>
+        </div>
+    </div>
+    <div class="background"></div>
+</div>

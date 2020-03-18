@@ -1,0 +1,73 @@
+<div class="side-form" >
+    <div class="content" >
+        <!-- <h1>Agregar Usuario</h1> -->
+        <div class="text-left text-white p-3 mb-3" style="background-color: #033028;">
+          <h3>Datos Del Paciente</h3>
+         
+        </div>
+        <hr>
+        <div class="form-container  p-4" style="background-color: #E1E2E1;">
+            <form class="mb-5">
+                <div class="form-row">
+                  <div class="form-group col-md-5">
+                    <label for="cliente">Nombre del paciente</label>
+                    <input ng-model="dato.nombre" type="text" class="form-control">
+                    <input ng-model="dato.id" type="text" hidden class="form-control">
+                  </div>
+                  <div class="form-group col-md-5">
+                    <label for="cantidad">Domicilio</label>
+                    <input ng-model="dato.domicilio" type="text" class="form-control">
+                  </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                      <label for="articulo">Telefono </label>
+                      <input ng-model="dato.telefono" type="text" class="form-control" >
+                    </div>
+                    <div class="form-group col-md-5">
+                      <label for="importe">Ocupacion</label>
+                      <input ng-model="dato.ocupacion" type="text" class="form-control" >
+                    </div>
+                  </div>
+                 
+                  <div class="form-row">
+                    <div class="form-group col-md-5">
+                      <label for="articulo">Sexo </label>
+                      <input ng-model="dato.sexo" type="text" class="form-control" >
+                    </div>
+                    <div class="form-group col-md-5">
+                      <label for="importe">Edad</label>
+                      <input ng-model="dato.edad" type="text" class="form-control" >
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-5">
+                      <label for="articulo">Estado Civil </label>
+                      <input ng-model="dato.estado_civil" type="text" class="form-control" >
+                    </div>
+                    <div class="form-group col-md-5">
+                      <label for="importe">Escolaridad</label>
+                      <input ng-model="dato.escolaridad" type="text" class="form-control" >
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-5">
+                      <label for="articulo">Expediente </label>
+                      <input ng-model="dato.expediente" type="text" class="form-control" >
+                    </div>
+                  </div>
+                  
+              </form>
+            
+                
+                <div ng-switch on="selection">
+                  <button type="button" class="btn btn-danger" ui-sref="home.usuarios" ng-click="boton('insertar')">Cerrar</button>
+                  <button ng-switch-when="insert" type="button" ng-click="insert_table('pacientes','insert','home.usuarios')" class="btn btn-success">Guardar</button>
+                  <button ng-switch-when="update" type="button" ng-click="insert_table('pacientes','update','home.usuarios')" class="btn btn-success">Editar</button>
+                </div>
+               
+              
+        </div>
+    </div>
+    <div class="background"></div>
+</div>

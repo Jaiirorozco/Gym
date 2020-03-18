@@ -1,0 +1,50 @@
+<div class="container-fluid">
+    <div class="container row mb-4">
+      <div class="col-md-9">
+        <a ng-click="open('Agregar Gasto', 'home.gastos')" ui-sref="home.gastos.add" class="btn btn-outline-warning border-warning d-inline-flex p-2 mt-3 bd-highlight fas fa-plus">Nuevo Gasto</a>
+      </div>
+      <div class="col-md-3">
+          <form class="navbar-form ">
+              <label for="inp" class="inp">
+                <input ng-model="searchText" type="search" id="search" placeholder="&nbsp;">
+                <span class="label">Buscar...</span>
+                <span class="border"></span>
+              </label>
+          </form>
+      </div>
+    </div>
+    <div class="table-wrapper">
+      <table id="notas" class="fl-table">
+          <thead>
+          <tr>
+              <th>#</th>
+              <th>Asunto</th>
+              <th>Monto</th>
+              <th>Notas</th> 
+              <th>Fecha</th> 
+              <th>Acciones</th>  
+              
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="dato in datos | filter:searchText | orderBy : orderByField : sortByDescending | limitTo:itemsPerPage:itemsPerPage*(currentPage-1)">
+              <td>{{datos.indexOf(dato)+1}}</td>
+              <td>{{dato.asunto}}</td>
+              <td>{{dato.monto}}</td>
+              <td>{{dato.notas}}</td>
+              <td>{{dato.fecha}}</td>
+              <td>
+                <i ng-click="delete(datos.indexOf(dato), 'crud/delete.php', 'ingresos');" class="fas fa-trash-alt tam text-danger cursor-mano" aria-hidden="true"></i> &nbsp; &nbsp; &nbsp;
+                <i class="fa fa-pencil-alt tam text-info cursor-mano" ng-click="edit(datos.indexOf(dato),'Editar Gasto','home.gastos.add');" aria-hidden="true"></i>
+              </td> 
+          </tr>
+         
+          <tbody>
+      </table>
+      
+    </div>  
+    <section ng-if="datos.length>0">
+      <ul class="d-flex justify-content-center mt-4 mb-4" uib-pagination total-items="datos.length" items-per-page="7" ng-model="currentPage" max-size="5" boundary-link-numbers="3" ng-change="pageChanged()"></ul>
+    </section>
+    </div>
+    <div ui-view class="view-side-form"></div>

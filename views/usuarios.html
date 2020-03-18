@@ -1,0 +1,49 @@
+<div class="container row mb-4">
+  <div class="col-md-9">
+    <a ui-sref="home.usuarios.add" class="btn btn-outline-info mt-4 fas fa-plus">Nuevo usuario</a>     
+  </div>
+  <div class="col-md-3">
+      <form class="navbar-form ">
+          <label for="inp" class="inp">
+            <input ng-model="searchText" type="search" id="search" placeholder="&nbsp;">
+            <span class="label">Buscar...</span>
+            <span class="border"></span>
+          </label>
+      </form>
+  </div>
+</div>
+<div class="table-wrapper">
+  <table class="fl-table">
+      <thead>
+      <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Telefono</th>
+          <th>Fecha</th>
+          <th>Expediente</th>
+          <th>Historial</th>
+          <th>Acciones</th>  
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="dato in datos | filter:searchText | orderBy : orderByField : sortByDescending | limitTo:itemsPerPage:itemsPerPage*(currentPage-1)">
+          <td>{{datos.indexOf(dato)+1}}</td>
+          <td>{{dato.nombre}}</td>
+          <td>{{dato.telefono}}</td>
+          <td>{{dato.fecha}}</td>
+          <td>#{{dato.expediente}}</td>
+          <td ui-sref="home.historial" ng-click="idPaciente(dato.id);" ><i class="fa fa-book-medical tam cursor-mano text-brown"></i></td>
+          <td>
+            <i ng-click="delete(datos.indexOf(dato), 'crud/delete.php', 'pacientes');" class="fas fa-trash-alt tam text-danger cursor-mano" ></i> &nbsp; &nbsp; &nbsp;
+            <i ng-click="edit(datos.indexOf(dato),'Editar Paciente','home.usuarios.add');" class="fa fa-pencil-alt tam text-info cursor-mano"></i>
+          </td>
+      </tr>
+      <tbody>
+  </table>
+  
+</div>  
+<section ng-if="datos.length">
+  <ul class="d-flex justify-content-center mt-4 mb-4" uib-pagination total-items="datos.length" items-per-page="7" ng-model="currentPage" max-size="5" boundary-link-numbers="3" ng-change="pageChanged()"></ul>
+</section>
+
+<div ui-view class="view-side-form"></div>

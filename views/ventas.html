@@ -1,0 +1,166 @@
+<div class="container row mb-4">
+    <div class="col-md-9">
+     
+      <a ui-sref="home.usuarios.add" class="btn btn-default">Add Venta</a>
+        <button data-toggle="modal" data-target=".bd-notas-modal-lg" type="button" class="btn btn-outline-info border-success d-inline-flex p-2 mt-3 bd-highlight fas fa-plus">&nbsp;&nbsp;Realizar nota de remision</button>
+    </div>
+    <div class="col-md-3">
+        <form class="navbar-form ">
+            <label for="inp" class="inp">
+              <input ng-model="searchText" type="search" id="search" placeholder="&nbsp;">
+              <span class="label">Buscar...</span>
+              <span class="border"></span>
+            </label>
+        </form>
+    </div>
+  </div>
+  <div class="table-wrapper">
+    <table id="notas" class="fl-table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Nombre cliente</th>
+            <th>Articulo</th>
+            <th>Cantidad</th>
+            <th>Importe</th>
+            <th>Total</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+            <th>Imprimir</th>
+            
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="dato in notas | filter:searchText | orderBy : orderByField : sortByDescending | limitTo:itemsPerPage:itemsPerPage*(currentPage-1)">
+            <td>{{notas.indexOf(dato)+1}}</td>
+            <td>{{dato.cliente}}</td>
+            <td>{{dato.articulo}}</td>
+            <td>{{dato.cantidad}}</td>
+            <td>{{dato.importe}}</td>
+            <td>{{dato.total}}</td>
+            <td>{{dato.fecha}}</td>
+            <td>
+              <i ng-click="delete(dato.id, 'crud/delete.php', 'notas', 'services/notas.php');" class="fas fa-trash-alt tam text-danger cursor-mano" aria-hidden="true"></i> &nbsp; &nbsp; &nbsp;
+              <i class="fa fa-pencil-alt tam text-info cursor-mano" ng-click="edit(notas.indexOf(dato),'.bd-edit_notas-modal-lg')" aria-hidden="true"></i>
+            </td>
+            <td><i ui-sref="home.pdf" ng-click="pdf(notas.indexOf(dato))" class="fas fa-print"></i></td>
+            
+        </tr>
+       
+        <tbody>
+    </table>
+    
+  </div>  
+  <section>
+    <ul class="d-flex justify-content-center mt-4 mb-4" uib-pagination total-items="notas.length" items-per-page="7" ng-model="currentPage" max-size="5" boundary-link-numbers="3" ng-change="pageChanged()"></ul>
+  </section>
+
+  <div ui-view class="view-side-form"></div>
+
+
+
+   <!-- Agregar modal -->
+   <div class="modal fade bd-notas-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Datos de venta</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form >
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="cliente">Nombre del cliente</label>
+                <input ng-model="dato.cliente" type="text" class="form-control">
+                <input ng-model="dato.id" type="text" hidden class="form-control">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="cantidad">Cantidad</label>
+                <input ng-model="dato.cantidad" type="number" class="form-control">
+              </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="articulo">Articulo </label>
+                  <input ng-model="dato.articulo" type="text" class="form-control" >
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="importe">Importe</label>
+                  <input ng-model="dato.importe" type="number" class="form-control" >
+                </div>
+              </div>
+             
+              <div class="form-row">
+                          
+                <div class="form-group col-md-6">
+                  <label for="total">Total</label>
+                  <input ng-model="dato.total" type="number" class="form-control" >
+                </div>
+                
+              </div>
+              
+          </form>
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+          <button type="button" ng-click="insert('crud/insertar_notas.php','.bd-notas-modal-lg','services/notas.php')" class="btn btn-success">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ui-view class="view-side-form"></div>
+    <!-- modificar modal -->
+    <div class="modal fade bd-edit_notas-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Datos de venta</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form >
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="cliente">Nombre del cliente</label>
+                  <input ng-model="detalle_datos.cliente" type="text" class="form-control">
+                  <input ng-model="detalle_datos.id" type="text" hidden class="form-control">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="articulo">Articulo</label>
+                  <input ng-model="detalle_datos.articulo" type="text" class="form-control">
+                </div>
+              </div>
+              <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="cantidad">Cantidad</label>
+                    <input ng-model="detalle_datos.cantidad" type="text" class="form-control" >
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="importe">Importe</label>
+                    <input ng-model="detalle_datos.importe" type="text" class="form-control" >
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="total">Total</label>
+                    <input ng-model="detalle_datos.total" type="text" class="form-control" >
+                  </div>
+                 
+                </div>
+                
+            </form>
+           
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            <button type="button" ng-click="update('crud/modificar_notas.php','.bd-edit_notas-modal-lg','services/notas.php')" class="btn btn-success">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
